@@ -151,7 +151,7 @@ void loop() {
 // User has typed Hi or Hello. Lets send back a greeting.
 void doSayHello(void) {
 
-   strcpy(&(comBuff[1]),"Greetings from..\nThe Ballon Server!\nCurrently, I'm an online dice rolling machine.");
+   strcpy(&(comBuff[1]),"Greetings!\nI'm an online dice rolling machine.");
    sendSMSMsg(comBuff);                                // Send the reply stored in the com buffer
 }
 
@@ -174,7 +174,7 @@ void doDiceRoll(void) {
       }
    }
    if (numDice>MAX_DICE) {                               // If the number of dice is more than the max..
-      strcpy(answer,"Too many dice! You only get ");     // Set the answer sgtring to an error message.
+      strcpy(answer,"Too many dice! Max # is ");     		// Set the answer string to an error message.
       strcat(answer,str(MAX_DICE));                      //
       strcat(answer,".");                                //
    } else {                                              // Else, the number of dice is ok..
@@ -232,9 +232,9 @@ void sendSMSMsg(byte* buff) {
 }
 
 
-// First byte is the index of the message we're after. When we pack our reply
-// it will be error byte. Then two c-strings. First is sending phone number,
-// second is the text message itself. Once a message is read, it's deleted
+// The SECOND byte is the index of the message we're after. (I forgot why). When we pack
+// our reply, the FIRST byte will be error byte. Then two c-strings. First is sending
+// phone number, second is the text message itself. Once a message is read, it's deleted
 // from the SIM chip.
 void getSMSMsg(byte* buff) {
 
